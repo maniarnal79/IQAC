@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config/api';
 
 const AuthContext = createContext(null);
 
 const TOKEN_KEY = 'iqac_token';
 const USER_KEY = 'iqac_user';
 
-axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = `${API_URL}/api`;
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));

@@ -12,9 +12,29 @@ const evidenceRoutes = require('./src/routes/evidenceRoutes');
 const app = express();
 const server = http.createServer(app);
 
+const extraOrigins = (process.env.CLIENT_ORIGIN || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true;
+
+  try {
+    const { hostname, protocol } = new URL(origin);
+    if (protocol !== 'http:' && protocol !== 'https:') return false;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
+    if (hostname.endsWith('.onrender.com')) return true;
+    if (extraOrigins.includes(origin)) return true;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || /^https?:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
+    if (isAllowedOrigin(origin)) {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'));
@@ -32,7 +52,7 @@ app.set('io', io);
 
 const PORT = process.env.PORT || 5000;
 
-app.use('/api', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 connectDB();

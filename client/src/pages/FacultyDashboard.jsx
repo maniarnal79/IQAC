@@ -12,6 +12,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { API_URL } from '../config/api';
 
 const FACULTY_CRITERIA = [
   { id: '3.2', label: '3.2 Research publications' },
@@ -73,7 +74,7 @@ export default function FacultyDashboard() {
   useEffect(() => {
     if (!token) return undefined;
 
-    const socket = io({
+    const socket = io(API_URL, {
       path: '/socket.io',
       auth: { token },
       transports: ['websocket', 'polling'],

@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { API_URL } from '../config/api';
 
 const ANNUAL_TARGETS = {
   1: 24,
@@ -98,7 +99,7 @@ export default function IqacCommandCenter() {
   useEffect(() => {
     if (!token) return undefined;
 
-    const nextSocket = io({
+    const nextSocket = io(API_URL, {
       path: '/socket.io',
       auth: { token },
       transports: ['websocket', 'polling'],

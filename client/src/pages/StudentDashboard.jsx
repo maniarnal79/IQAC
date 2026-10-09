@@ -14,6 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { API_URL } from '../config/api';
 
 const CRITERIA_OPTIONS = [
   { id: '1.1', label: '1.1 Curriculum Design' },
@@ -134,7 +135,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     if (!token || !user?.id) return undefined;
 
-    const socket = io({
+    const socket = io(API_URL, {
       path: '/socket.io',
       auth: { token },
       transports: ['websocket', 'polling'],
