@@ -8,13 +8,13 @@ import {
   Clock3,
   GraduationCap,
   Link as LinkIcon,
-  LogOut,
   Plus,
   Users,
   X,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../config/api';
+import BrandHeader from '../components/BrandHeader';
 
 const CRITERIA_OPTIONS = [
   { id: '1.1', label: '1.1 Curriculum Design' },
@@ -99,7 +99,7 @@ const initialForm = {
 };
 
 export default function StudentDashboard() {
-  const { user, token, logout } = useAuth();
+  const { user, token } = useAuth();
   const [stats, setStats] = useState(emptyStats);
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(initialForm);
@@ -221,26 +221,9 @@ export default function StudentDashboard() {
 
   return (
     <div className="min-h-svh bg-slate-50 text-slate-800">
-      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
-        <div className="mx-auto flex max-w-lg items-center justify-between">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-indigo-600">
-              Student portal
-            </p>
-            <h1 className="text-lg font-semibold text-slate-900">Live IQAC counters</h1>
-          </div>
-          <button
-            type="button"
-            onClick={logout}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-500"
-            aria-label="Log out"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
-        </div>
-      </header>
-
+      <BrandHeader />
       <main className="mx-auto max-w-lg px-4 pb-28 pt-4">
+        <h1 className="mb-4 text-lg font-semibold text-slate-900">Live IQAC counters</h1>
         {showSurveyBanner ? (
           <div className="mb-4 flex gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left">
             <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">

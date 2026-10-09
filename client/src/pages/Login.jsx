@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import BrandHeader from '../components/BrandHeader';
 
 const DASHBOARD_BY_ROLE = {
   student: '/student',
@@ -39,11 +40,18 @@ export default function Login() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
+      <BrandHeader />
+      <main className="flex items-center justify-center px-4 py-10">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl"
       >
+        <img
+          src="/university-logo.png"
+          alt="Dr. M.G.R. Educational and Research Institute"
+          className="mx-auto mb-4 h-16 w-auto object-contain"
+        />
         <h1 className="mb-6 text-center text-2xl font-semibold text-slate-900">
           IQAC Quality Portal
         </h1>
@@ -87,6 +95,7 @@ export default function Login() {
           </Link>
         </p>
       </form>
-    </main>
+      </main>
+    </div>
   );
 }

@@ -7,12 +7,12 @@ import {
   ExternalLink,
   FileText,
   GraduationCap,
-  LogOut,
   Radio,
   X,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { API_URL } from '../config/api';
+import BrandHeader from '../components/BrandHeader';
 
 const FACULTY_CRITERIA = [
   { id: '3.2', label: '3.2 Research publications' },
@@ -41,7 +41,7 @@ function recordId(record) {
 }
 
 export default function FacultyDashboard() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const [queue, setQueue] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState(null);
@@ -161,28 +161,19 @@ export default function FacultyDashboard() {
 
   return (
     <div className="min-h-svh bg-slate-100 text-slate-800">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-              Faculty workspace
-            </p>
-            <h1 className="text-xl font-semibold text-slate-900">
-              Verification queue
-            </h1>
-          </div>
-          <button
-            type="button"
-            onClick={logout}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600"
-          >
-            <LogOut className="h-4 w-4" />
-            Log out
-          </button>
-        </div>
-      </header>
-
-      <main className="mx-auto grid max-w-7xl gap-6 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <BrandHeader
+        notice={
+          liveNote ? (
+            <span className="inline-flex items-center gap-1">
+              <Radio className="h-3.5 w-3.5" />
+              {liveNote}
+            </span>
+          ) : null
+        }
+      />
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <h1 className="sr-only">Verification queue</h1>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <section className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
             <div className="flex items-center gap-2">
@@ -392,6 +383,7 @@ export default function FacultyDashboard() {
             </button>
           </form>
         </section>
+        </div>
       </main>
     </div>
   );

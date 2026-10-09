@@ -14,23 +14,29 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: false,
-        includeAssets: ['favicon.svg', 'icons.svg'],
+        includeAssets: ['favicon.ico', 'icon.png', 'university-logo.png'],
         manifest: {
-          name: 'IQAC',
-          short_name: 'IQAC',
-          description: 'IQAC evidence tracking',
+          name: 'Dr. M.G.R. Educational and Research Institute - IQAC Portal',
+          short_name: 'MGR IQAC',
+          description: 'Internal Quality Assurance Cell portal',
           theme_color: '#ffffff',
           background_color: '#ffffff',
           display: 'standalone',
           start_url: '/',
           icons: [
             {
-              src: 'pwa-192x192.png',
-              sizes: '192x192',
-              type: 'image/png',
+              src: 'favicon.ico',
+              sizes: '48x48',
+              type: 'image/x-icon',
             },
             {
-              src: 'pwa-512x512.png',
+              src: 'icon.png',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'any',
+            },
+            {
+              src: 'icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any maskable',
